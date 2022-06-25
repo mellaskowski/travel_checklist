@@ -1,32 +1,32 @@
+import React, { useState } from 'react';
 
 
 export interface CheckListItemProp extends React.Component {
 	name: string,
 	packed: boolean,
 	quantity: number,
+	isNew?: boolean,
 }
 
 const CheckListItem: React.FunctionComponent<CheckListItemProp> =({
 	name,
 	packed,
 	quantity,
+	isNew
 }) => {
 
+	isNew = isNew || false;
 	// const [checked, setChecked] = useState(boolean);
 
 
-	// when user adds an item to the list
-	// const addItem = () = {
-
-	// };
-
+	// when user packs/checks an item
 
 
 	return (
 		<div>
-			<input value={packed} disabled={packed} type="checkbox" />
-			<input type="string" default={name}/>
-			<input type="number" default={quantity}/>
+			{!isNew && <input value={packed} disabled={packed} type="checkbox" /> }
+			<input type="string" value={name}/>
+			<input type="number" value={quantity}/>
 		</div>
 	);
 }

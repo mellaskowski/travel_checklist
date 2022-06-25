@@ -1,6 +1,5 @@
 import './App.css';
 import CheckList from './Checklist.js';
-import CheckListItem from './CheckListItem';
 
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
 
         <div>
           <CheckList items={[]} />
-          <CheckListItem quantity={9} name={'potato'} packed={false}/>
       </div>
       </header>
     </div>
