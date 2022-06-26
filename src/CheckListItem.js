@@ -16,17 +16,29 @@ const CheckListItem: React.FunctionComponent<CheckListItemProp> =({
 }) => {
 
 	isNew = isNew || false;
-	// const [checked, setChecked] = useState(boolean);
-
+	const [checked, setChecked] = useState(isNew);
+	const [displayName, setName] = useState(name);
 
 	// when user packs/checks an item
+	const checkItem = () => {
+		if (checked) {
+			//un pack item
+			setChecked(false);
+		} else {
+			setChecked(true);
+		}
+	};
+
+	const nameChange = () => {
+
+	}
 
 
 	return (
 		<div>
-			{!isNew && <input value={packed} type="checkbox" /> }
-			<input type="string" value={name}/>
-			<input type="number" value={quantity}/>
+			{!isNew && <input defaultValue={checked} type="checkbox" /> }
+			<input type="text" defaultValue={displayName}/>
+			<input type="number" defaultValue={quantity}/>
 		</div>
 	);
 }

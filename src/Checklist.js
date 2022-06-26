@@ -36,7 +36,6 @@ const CheckList: React.FunctionComponent<CheckListProps> = ({
 	};
 
 	useEffect(() => {
-		console.log(listState);
 		startingStates = listState;
 		items.forEach((item, index) => {
 			startingStates.concat(item);
@@ -44,7 +43,7 @@ const CheckList: React.FunctionComponent<CheckListProps> = ({
 		// add new input section
 		startingStates.push(newListItem);
 		setListState(startingStates);
-		console.log('items', items);
+		console.log('startingStates', startingStates);
 	},
 	[]
 	);
@@ -52,37 +51,28 @@ const CheckList: React.FunctionComponent<CheckListProps> = ({
 	// add new item to list
 	const addItemToList = () => {
 		console.log('adding new item to list');
-		const curState = listState;
-		// curState.forEach((item,index) => {
-		// 	if (index===(curState.length - 1)) {
-		// 		const addingItem = {
-		// 			name: item.name,		
-		// 			quantity: item.quantity,
-		// 			packed: false,
-		// 			isNew: false	
-		// 		};
-		// 		return item = addingItem;
-		// 		console.log(item, addingItem, 'itesmsms');
-		// 	}
-		// });
-		const lastItem = curState.pop();
-		lastItem.isNew = false;
-console.log(lastItem);
+		let lastItem = {};
+		const curState = listState.filter((item,index) => {
+			if (index===(listState.length - 1)) {
+				lastItem = {
+					name: item.name,		
+					quantity: item.quantity,
+					packed: false,
+					isNew: false	
+				};
+				return lastItem;
+			} 
+			return true;
+		});
+	
+console.log('cur state 1',curState);		
+// 		const lastItem = curState.pop();
+// 		lastItem.isNew = false;
+// console.log('cur stat 2',curState);
 		curState.push(lastItem);
 		curState.push(newListItem);
 						console.log('current state', curState);
 		setListState([...listState, newListItem]);
-
-		return (			
-			<>
-				<CheckListItem
-				name={lastItem.name}
-				quantity={lastItem.quantity}
-				packed={lastItem.packed}
-				isNew={lastItem.isNew}
-				/>
-			</>
-		);
 	};
 
 	const displayListItem = (item: CheckListItem) => {
@@ -118,7 +108,15 @@ console.log(lastItem);
 
 
 	return ( <div>
-		{ listItems() }
+			{listState.map((item, i) => (				
+				<CheckListItem
+				name={item.name}
+				quantity={item.quantity}
+				packed={item.packed}
+				isNew={item.isNew}
+				/>
+			))}
+			<button onClick={ () => addItemToList() }> Add </button>
 		</div>
 	);
 }
