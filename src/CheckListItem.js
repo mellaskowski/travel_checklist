@@ -24,7 +24,7 @@ const CheckListItem: React.FunctionComponent<CheckListItemProp> =({
 
 	return (
 		<div>
-			{!isNew && <input value={packed} disabled={packed} type="checkbox" /> }
+			{!isNew && <input value={packed} type="checkbox" /> }
 			<input type="string" value={name}/>
 			<input type="number" value={quantity}/>
 		</div>
