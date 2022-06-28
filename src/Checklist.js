@@ -5,43 +5,34 @@ export interface CheckListProps extends React.Component {
 	items: CheckListItem[],
 }
 
-const CheckListFakeData = [{
-	name: 'socks',
-	packed: true,
-	quantity: 9,
-	isNew: false,
-},
-{
-	name: 'pants',
+const CheckListStartData = [{
+	name: '',
 	packed: false,
-	quantity: 4,
-	isNew: false,
+	quantity: 1,
+	isNew: true,
 }
 ];
 
 const CheckList: React.FunctionComponent<CheckListProps> = ({
-	items
 
 }) => {
 	
-	const [listState, setListState] = useState(CheckListFakeData);
+	const [listState, setListState] = useState(CheckListStartData);
 
 	let startingStates: CheckListItem[] = [];
 
 	const newListItem = {
 		name: 'new',
-		quantity: 1,
 		packed: false,
+		quantity: 1,
 		isNew: true	
 	};
 
 	useEffect(() => {
 		startingStates = listState;
-		items.forEach((item, index) => {
-			startingStates.concat(item);
-		});
-		// add new input section
-		startingStates.push(newListItem);
+		// items.forEach((item, index) => {
+		// 	startingStates.concat(item);
+		// });
 		setListState(startingStates);
 		console.log('startingStates', startingStates);
 	},
@@ -56,19 +47,20 @@ const CheckList: React.FunctionComponent<CheckListProps> = ({
 			if (index===(listState.length - 1)) {
 				lastItem = {
 					name: item.name,		
-					quantity: item.quantity,
 					packed: false,
+					quantity: item.quantity,
 					isNew: false	
 				};
-				return lastItem;
-			} 
-			return true;
+				return false;
+			}  else {
+				return {
+					name: item.name,
+					packed: item.packed,		
+					quantity: item.quantity,
+					isNew: false	}
+			}
 		});
 	
-console.log('cur state 1',curState);		
-// 		const lastItem = curState.pop();
-// 		lastItem.isNew = false;
-// console.log('cur stat 2',curState);
 		curState.push(lastItem);
 		curState.push(newListItem);
 						console.log('current state', curState);
@@ -76,6 +68,7 @@ console.log('cur state 1',curState);
 	};
 
 	const displayListItem = (item: CheckListItem) => {
+		
 		return (			
 			<>
 				<CheckListItem
@@ -107,6 +100,7 @@ console.log('cur state 1',curState);
 	};
 
 
+	console.log('pre return', listState.map.length);
 	return ( <div>
 			{listState.map((item, i) => (				
 				<CheckListItem
