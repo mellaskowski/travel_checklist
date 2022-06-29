@@ -9,44 +9,45 @@ export interface CheckListItemProp extends React.Component {
 }
 const DEFAULT_QUANTITY = 1;
 
-
-class CheckListItem extends React.Component<CheckListItemProp> {
-
-	constructor(props: CheckListItemProp) {
-	    super(props);
-	    this.state = props;
-	    console.log('props', props);
-     }
-    // const isNew = false;
-
-	// const [checked, setChecked] = useState(isNew);
-	// const [displayName, setName] = useState(name);
+const CheckListItem: React.FunctionComponent<CheckListItemProp> = ({
+																	  displayName,
+																	  packed,
+																	  quantityOfItem,
+																	  newItem
+																  }) => {
+	console.log(displayName, quantityOfItem, packed, newItem);
+	const [name, setName] = useState('displayName');
+	const [quantity, setQuantity] = useState(DEFAULT_QUANTITY);
+	const [isPacked, setIsPacked] = useState(false);
+	const [isNew, setNew] = useState(true);
 
 	// when user packs/checks an item
-	isPacked(value) {
+	const updatePackStatus = (value) => {
+		console.log('update pack status ', value);
 		if (value) {
-			return this;
-			//un pack item
-		// 	this.setState({isPacked: false});
-		// } else {
-		// 	this.setState({isPacked: true});
+			setIsPacked(true);
+		} else {
+			setIsPacked(false);
 		}
 	};
 
-	nameChange(name: string) {
-		console.log('is new name: name');
-		this.setName(name);
+	const updateName = (name: string = '') => {
+		console.log('is new name: ', name);
+		setName(name);
 	};
 
-	render(){
-		return (
-			<div>
-				{true && <input defaultValue={this.state.isPacked} type="checkbox" onClick={(value) => this.isPacked(value)}/> }
-				<input type="text" defaultValue={''} onSubmit={(value) => this.nameChange(value)}/>
-				<input type="number" defaultValue={DEFAULT_QUANTITY}/>
-			</div>
-		);
-	}
+	const updateQuantity = (quantity: number = DEFAULT_QUANTITY) => {
+		console.log('quantity status update: ', quantity);
+		setQuantity(quantity);
+	};
+
+	return (
+		<div>
+			{ <input defaultValue={isPacked} type="checkbox" /> }
+			<input type="text" defaultValue={name} />
+			<input type="number" defaultValue={quantity}/>
+		</div>
+	);
 }
 
 export default CheckListItem;

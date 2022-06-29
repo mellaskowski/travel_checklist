@@ -10,8 +10,7 @@ const CheckListStartData = [{
 	packed: false,
 	quantity: 1,
 	isNew: true,
-}
-];
+}];
 
 const CheckList: React.FunctionComponent<CheckListProps> = ({
 
@@ -21,86 +20,56 @@ const CheckList: React.FunctionComponent<CheckListProps> = ({
 
 	let startingStates: CheckListItem[] = [];
 
-	const newListItem = {
+	/// could either only update the latest response or 
+	/// 
+
+	const newListItem = CheckListItem({
 		name: 'new',
 		packed: false,
 		quantity: 1,
 		isNew: true	
-	};
+	});
 
-	useEffect(() => {
-		startingStates = listState;
-		// items.forEach((item, index) => {
-		// 	startingStates.concat(item);
-		// });
-		setListState(startingStates);
-		console.log('startingStates', startingStates);
-	},
-	[]
-	);
+	// useEffect(() => {
+	// 	startingStates = listState;
+	// 	setListState(startingStates);
+	// 	console.log('startingStates', startingStates);
+	// },
+	// []
+	// );
 
 	// add new item to list
 	const addItemToList = () => {
 		console.log('adding new item to list');
 		let lastItem = {};
+		console.log('cur list state', listState);
 		const curState = listState.filter((item,index) => {
 			if (index===(listState.length - 1)) {
-				lastItem = {
-					name: item.name,		
-					packed: false,
-					quantity: item.quantity,
-					isNew: false	
-				};
+				// lastItem = new CheckListItem({
+				// 	name: item.name,		
+				// 	packed: item.packed,
+				// 	quantity: item.quantity,
+				// 	isNew: false	
+				// });
+				console.log(lastItem, 'last item');
 				return false;
 			}  else {
+				// console.log('temp', temp);
+
 				return {
 					name: item.name,
 					packed: item.packed,		
 					quantity: item.quantity,
-					isNew: false	}
+					isNew: false }
 			}
 		});
 	
 		curState.push(lastItem);
 		curState.push(newListItem);
 						console.log('current state', curState);
-		setListState([...listState, newListItem]);
+		setListState(curState);
 	};
 
-	const displayListItem = (item: CheckListItem) => {
-		
-		return (			
-			<>
-				<CheckListItem
-				name={item.name}
-				quantity={item.quantity}
-				packed={item.packed}
-				isNew={item.isNew}
-				/>
-			</>
-		);
-	};
-
-	const listItems = (): CheckListItem => {
-		console.log('listing items', listState);
-		return (
-			<div>
-			{listState.map((item, i) => (				
-				<CheckListItem
-				name={item.name}
-				quantity={item.quantity}
-				packed={item.packed}
-				isNew={item.isNew}
-				/>
-			))}
-			<button onClick={ () => addItemToList() }> Add </button>
-	
-			</div>
-		);
-	};
-
-
-	console.log('pre return', listState.map.length);
 	return ( <div>
 			{listState.map((item, i) => (				
 				<CheckListItem
