@@ -9,25 +9,19 @@ export interface CheckListItemProp extends React.Component {
 }
 const DEFAULT_QUANTITY = 1;
 
-const CheckListItem: React.FunctionComponent<CheckListItemProp> = ({
-																	  displayName,
-																	  packed,
-																	  quantityOfItem,
-																	  newItem
-																  }) => {
-	console.log(displayName, quantityOfItem, packed, newItem);
-	const [name, setName] = useState('displayName');
-	const [quantity, setQuantity] = useState(DEFAULT_QUANTITY);
-	const [isPacked, setIsPacked] = useState(false);
-	const [isNew, setNew] = useState(true);
+const CheckListItem: React.FunctionComponent<> = (props) => {
+	console.log('props', props);
+	const [name, setName] = useState(props.name);
+	const [quantity, setQuantity] = useState(props.quantity);
+	const [isPacked, setIsPacked] = useState(props.packed);
+	const [isNew, setNew] = useState(props.isNew);
 
 	// when user packs/checks an item
-	const updatePackStatus = (value) => {
-		console.log('update pack status ', value);
-		if (value) {
-			setIsPacked(true);
-		} else {
+	const updatePackStatus = () => {
+		if (isPacked) {
 			setIsPacked(false);
+		} else {
+			setIsPacked(true);
 		}
 	};
 
@@ -43,8 +37,8 @@ const CheckListItem: React.FunctionComponent<CheckListItemProp> = ({
 
 	return (
 		<div>
-			{ <input defaultValue={isPacked} type="checkbox" /> }
-			<input type="text" defaultValue={name} />
+			{ <input defaultValue={isPacked} type="checkbox" onClick={() =>updatePackStatus()}/> }
+			<input type="text" defaultValue={name}/>
 			<input type="number" defaultValue={quantity}/>
 		</div>
 	);

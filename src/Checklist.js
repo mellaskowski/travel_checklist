@@ -6,7 +6,7 @@ export interface CheckListProps extends React.Component {
 }
 
 const CheckListStartData = [{
-	name: '',
+	name: 'Booo',
 	packed: false,
 	quantity: 1,
 	isNew: true,
@@ -44,29 +44,28 @@ const CheckList: React.FunctionComponent<CheckListProps> = ({
 		let lastItem = {};
 		console.log('cur list state', listState);
 		const curState = listState.filter((item,index) => {
-			if (index===(listState.length - 1)) {
-				// lastItem = new CheckListItem({
-				// 	name: item.name,		
-				// 	packed: item.packed,
-				// 	quantity: item.quantity,
-				// 	isNew: false	
-				// });
-				console.log(lastItem, 'last item');
-				return false;
-			}  else {
-				// console.log('temp', temp);
+			// if (index===(listState.length - 1)) {
+			// 	console.log(item, 'last item');
+			// 	lastItem = CheckListItem({
+			// 		name: item.name,
+			// 		packed: item.packed,
+			// 		quantity: item.quantity,
+			// 		isNew: item.isNew
+			// 	});
+			// 	return false;
+			// }  else {
+			// 	// console.log('temp', temp);
 
 				return {
 					name: item.name,
 					packed: item.packed,		
 					quantity: item.quantity,
-					isNew: false }
-			}
+					isNew: false };
+			// }
 		});
 	
-		curState.push(lastItem);
 		curState.push(newListItem);
-						console.log('current state', curState);
+		console.log('current state', curState);
 		setListState(curState);
 	};
 
