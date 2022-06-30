@@ -5,83 +5,62 @@ export interface CheckListProps extends React.Component {
 	items: CheckListItem[],
 }
 
-const CheckListStartData = [{
+const CheckListoldData = [{
 	name: 'Booo',
 	packed: false,
 	quantity: 1,
 	isNew: true,
 }];
 
+
 const CheckList: React.FunctionComponent<CheckListProps> = ({
 
 }) => {
 	
-	const [listState, setListState] = useState(CheckListStartData);
+	const [listState, setListState] = useState(CheckListoldData);
 
 	let startingStates: CheckListItem[] = [];
 
-	/// could either only update the latest response or 
-	/// 
-
 	const newListItem = CheckListItem({
 		name: 'new',
-		packed: false,
+		isPacked: false,
 		quantity: 1,
-		isNew: true	
+		isNew: true
 	});
 
-	// useEffect(() => {
-	// 	startingStates = listState;
-	// 	setListState(startingStates);
-	// 	console.log('startingStates', startingStates);
-	// },
-	// []
-	// );
 
 	// add new item to list
+	// make sure all previous items are marked as not new
+	// add the new Checklist item
 	const addItemToList = () => {
-		console.log('adding new item to list');
-		let lastItem = {};
-		console.log('cur list state', listState);
 		const curState = listState.filter((item,index) => {
-			// if (index===(listState.length - 1)) {
-			// 	console.log(item, 'last item');
-			// 	lastItem = CheckListItem({
-			// 		name: item.name,
-			// 		packed: item.packed,
-			// 		quantity: item.quantity,
-			// 		isNew: item.isNew
-			// 	});
-			// 	return false;
-			// }  else {
-			// 	// console.log('temp', temp);
-
 				return {
 					name: item.name,
 					packed: item.packed,		
 					quantity: item.quantity,
 					isNew: false };
-			// }
 		});
 	
 		curState.push(newListItem);
-		console.log('current state', curState);
 		setListState(curState);
 	};
 
 	return ( <div>
-			{listState.map((item, i) => (				
-				<CheckListItem
+		{listState.map((item, i) => (
+			<CheckListItem
 				name={item.name}
 				quantity={item.quantity}
 				packed={item.packed}
 				isNew={item.isNew}
-				/>
+			/>
 			))}
 			<button onClick={ () => addItemToList() }> Add </button>
 		</div>
 	);
 }
 
-
+{/*{listState.map((component, index) => (*/}
+{/*	<React.Fragment key={index}>*/}
+{/*		{component}*/}
+{/*	</React.Fragment>*/}
 export default CheckList;
